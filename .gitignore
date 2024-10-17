@@ -1,0 +1,16 @@
+.DS_Store
+Thumbs.db
+BUG
+.venv
+node_modules
+source
+__pycache__
+.idea
+.env
+.dockerignore
+
+
+
+
+
+
