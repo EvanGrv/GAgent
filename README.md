@@ -10,7 +10,7 @@ Les librairies Python utilisées sont : Streamlit (pour le front), os, dotenv, l
 Pour lancer le projet, assurez-vous que toutes les bibliothèques nécessaires ont été installées, puis suivez les étapes suivantes :
 1. Ouvrez le terminal.
 2. Allez dans le répertoire `Interface` à l'aide de la commande `cd`.
-3. Exécutez la commande ```streamlit run Accueil_🧊 ``` ou ```streamlit run Accueil_$'\360\237\247\212'.py ```
+3. Exécutez la commande ```streamlit run Accueil ```
 
 ## Arborescence du Projet
 
@@ -18,11 +18,11 @@ Pour lancer le projet, assurez-vous que toutes les bibliothèques nécessaires o
 
 #### Config.py :
 Contient l'assistant ID ainsi que le thread ID qui permettent de définir l'assistant choisi et son fil de discussion (thread).  
-Ce fichier peut être réécrit par la fonction `update_config` dans le fichier `Ice_Acquisition_🧊`.  
+Ce fichier peut être réécrit par la fonction `update_config` dans le fichier `GAgent.py`.  
 Ce fichier est lui-même relié à `send_message.py` pour lequel il va servir de référence pour les ID.
 
-#### send_message et send_message_botbox :
-`send_message` et `send_message_botbox` ont le même fonctionnement, cependant l'un est relié à `Ice_Acquisition_🧊` et l'autre à `Ice_Animation_🧊`.  
+#### send_message :
+`send_message` relié à `GAgent`.  
 `send_message` est composé de 8 fonctions ainsi qu'une classe.
 
 ### Importations et configuration initiale
@@ -86,10 +86,6 @@ Les clés d'API se trouvent, comme énoncé précédemment, dans les fichiers `c
 
 
 ## Étapes restantes à faire 
-- Rendre fonctionnelle la nouvelle arborescence du projet [ ]
-- Implémenter FlowiseAI avec le streaming [ ]
-- Connecter Flowise à SingleStore [  ]
-- Déployer l'interface Streamlit [ ]
-- Héberger l'interface Streamlit [ ]
+
 
 

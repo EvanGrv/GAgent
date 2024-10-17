@@ -16,7 +16,7 @@ imported_message = __import__(module_sen_message)
 imported_upload = __import__(module_upload)
 imported_config = __import__(module_config)
 
-fonction_dir = base_dir / "Acquisition_fonction"
+fonction_dir = base_dir / "GAgent_fonction"
 if fonction_dir not in sys.path:
     sys.path.append(str(fonction_dir))
 fonction_message = "message_protocol"
