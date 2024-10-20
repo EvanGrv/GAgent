@@ -22,10 +22,10 @@ bash_script_path = current_dir / 'bash' / 'start_streamlit.sh'
 def initialize_buttons():
     """Initialise les boutons une seule fois dans session_state"""
     if "initialized" not in st.session_state:
-        st.session_state.button_1_text = "Assistance Technique Niveau 2"
-        st.session_state.button_1_link = "https://banquise.com/"
-        st.session_state.button_2_text = "Contacter mon Animateur réseau"
-        st.session_state.button_2_link = "https://banquise.com/"
+        st.session_state.button_1_text = "Question 1"
+        st.session_state.button_1_link = ""
+        st.session_state.button_2_text = "Question 2"
+        st.session_state.button_2_link = ""
         st.session_state.initialized = True
 
 def get_button_state():

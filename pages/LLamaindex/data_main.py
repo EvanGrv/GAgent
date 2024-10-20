@@ -46,7 +46,7 @@ while(prompt := input("Enter a promp (q to quit): ")) != "q":
     print(tools)
     print(result)
     print("Retriever ---------------------------:", result2)
-    print("Query Engine -----------------------------:", result3)
+    print("Query Engine -----------------------------:", result3.pr)
 
 
 
