@@ -25,7 +25,7 @@ imported_message_protocol = __import__(fonction_message)
 imported_admin = __import__(fonction_admin)
 
 
-st.set_page_config(page_title="Ice Acquisition", page_icon="🤖", layout="wide")
+st.set_page_config(page_title="GAgent", page_icon="🤖", layout="wide")
 
 # Inject custom CSS to style the page
 
@@ -43,7 +43,7 @@ else:
 
 
 if "header_title" not in st.session_state:
-    st.session_state.header_title = "Ice Acquisition "
+    st.session_state.header_title = "GAgent "
 
 if "header_image" not in st.session_state:
     st.session_state.sidebar_image = image_path

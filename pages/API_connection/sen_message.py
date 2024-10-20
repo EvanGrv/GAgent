@@ -9,7 +9,7 @@ import config  # Importer le fichier de configuration
 load_dotenv()
 
 client = openai.OpenAI(api_key=config.api_key)
-model = "gpt-4o"
+model = "gpt-4o-mini-2024-07-18"
 # Lire assistant_id et thread_id depuis le fichier de configuration
 assistant_id = config.assistant_id
 thread_id = config.thread_id
@@ -54,22 +54,44 @@ class EventHandler(AssistantEventHandler):
     def __init__(self, callback):
         super().__init__()
         self.callback = callback
+        self.last_text = ""  # Stocker le dernier texte envoyé pour éviter les doublons
 
     @override
     def on_text_created(self, text_obj) -> None:
         text = text_obj.value if hasattr(text_obj, "value") else text_obj
-        transformed_text = make_links_clickable(text)
-        cleaned_text = remove_japanese_parentheses(transformed_text)
-        print(f"Cleaned text: {cleaned_text}")
-        self.callback(cleaned_text)
+        cleaned_text = remove_japanese_parentheses(text)
+        transformed_text = make_links_clickable(cleaned_text)
+
+        # Vérifier et enlever la répétition du premier mot
+        transformed_text = self.remove_repeated_first_word(transformed_text)
+
+        # Vérifier que le texte n'est pas vide et qu'il est différent du dernier envoyé
+        if transformed_text and transformed_text != self.last_text:
+            self.callback(transformed_text)
+            self.last_text = transformed_text
 
     @override
     def on_text_delta(self, delta, snapshot):
         text = delta.value if hasattr(delta, "value") else delta
-        transformed_text = make_links_clickable(text)
-        cleaned_text = remove_japanese_parentheses(transformed_text)
-        self.callback(cleaned_text)
+        cleaned_text = remove_japanese_parentheses(text)
+        transformed_text = make_links_clickable(cleaned_text)
 
+        # Vérifier et enlever la répétition du premier mot
+        transformed_text = self.remove_repeated_first_word(transformed_text)
+
+        # Vérifier que le texte n'est pas vide et qu'il est différent du dernier envoyé
+        if transformed_text and transformed_text != self.last_text:
+            self.callback(transformed_text)
+            self.last_text = transformed_text
+
+    def remove_repeated_first_word(self, text):
+        # Vérifier si le texte commence par une répétition du premier mot
+        words = text.split(maxsplit=2)  # Séparer les deux premiers mots uniquement
+        if len(words) > 1 and words[0] == words[1]:
+            # Si les deux premiers mots sont identiques, les supprimer une fois
+            return text[
+                   len(words[0]):].lstrip()  # Enlever seulement la première occurrence du mot en gardant les espaces
+        return text
     def on_tool_call_created(self, tool_call):
         if (
             tool_call.type != "file_search"
@@ -115,3 +137,5 @@ def send_message_stream(message, callback):
             stream.until_done()
     except Exception as e:
         logging.error(f"Une erreur s'est produite lors du flux de messages : {e}")
+
+
