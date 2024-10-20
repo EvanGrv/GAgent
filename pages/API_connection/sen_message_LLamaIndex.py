@@ -7,25 +7,24 @@ from llama_index.core import (
     load_index_from_storage,
     get_response_synthesizer,
 )
-from llama_index.core import SummaryIndex
-from llama_index.readers.mongodb import SimpleMongoReader
-from IPython.display import Markdown, display
-import os
-
 
 import logging
 import streamlit.components.v1 as components
 import sys
 from pathlib import Path
-import os
-import asyncio
 import io
 from contextlib import redirect_stdout
 
 
 base_dir = Path(__file__).resolve().parent
+data_dir = Path(__file__).parent
 module_dir = base_dir / "API_connection"
 module_sen_message = "sen_message"
+data_file = data_dir / "data"
+
+if not data_file.exists():
+    print(f"Directory {data_file} does not exist. Creating it now.")
+    data_dir.mkdir(parents=True, exist_ok=True)
 
 if module_dir not in sys.path:
     sys.path.append(str(module_dir))
@@ -33,6 +32,7 @@ if module_dir not in sys.path:
 imported_message = __import__(module_sen_message)
 
 mongodb_client = pymongo.MongoClient()
+
 
 
 
@@ -45,7 +45,7 @@ else :
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
-documents = SimpleDirectoryReader("./data").load_data()
+documents = SimpleDirectoryReader(str(data_file)).load_data()
 index = VectorStoreIndex.from_documents(documents)
 query_engine = index.as_query_engine(streaming=True, similarity_top_k=1)
 
