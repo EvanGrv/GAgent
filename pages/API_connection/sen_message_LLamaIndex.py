@@ -34,13 +34,10 @@ imported_message = __import__(module_sen_message)
 mongodb_client = pymongo.MongoClient()
 
 
-
-
-if mongodb_client :
+if mongodb_client:
     print("Connection is successfull")
-else :
+else:
     print("Connection failed")
-
 
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
@@ -48,6 +45,7 @@ logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 documents = SimpleDirectoryReader(str(data_file)).load_data()
 index = VectorStoreIndex.from_documents(documents)
 query_engine = index.as_query_engine(streaming=True, similarity_top_k=1)
+
 
 def generate_stream(prompt):
     print("ici 4")
@@ -66,8 +64,3 @@ def generate_stream(prompt):
 
     # Retourner la réponse capturée si nécessaire
     return result
-
-
-
-
-

@@ -59,13 +59,17 @@ st.markdown(
 # Add some space at the top to account for the fixed title
 st.markdown('<div class="top-padding"></div>', unsafe_allow_html=True)
 
+
 def import_function(module_name, function_name):
     try:
         module = __import__(module_name, fromlist=[function_name])
         return getattr(module, function_name)
     except (ImportError, AttributeError) as e:
-        st.error(f"Erreur lors de l'importation de {function_name} depuis {module_name}: {e}")
+        st.error(
+            f"Erreur lors de l'importation de {function_name} depuis {module_name}: {e}"
+        )
         return None
+
 
 def file_upload_page():
     file_upload = import_function("upload_page", "file_upload_page")
@@ -76,7 +80,7 @@ def file_upload_page():
 
 
 def pdf_page():
-    pdf_page_module = import_function("pdf_page","pdf_page")
+    pdf_page_module = import_function("pdf_page", "pdf_page")
     if pdf_page:
         pdf_page_module()
     else:
@@ -84,11 +88,12 @@ def pdf_page():
 
 
 def admin():
-    admin_page = import_function("admin_page","admin")
+    admin_page = import_function("admin_page", "admin")
     if admin_page:
         admin_page()
     else:
         print("La fonction admin_page ne fonctionne pas")
+
 
 # Importer dynamiquement les fonctions initialize_buttons et get_button_state
 initialize_buttons = import_function("admin_page", "initialize_buttons")
@@ -97,7 +102,6 @@ get_button_state = import_function("admin_page", "get_button_state")
 # Initialiser les boutons une seule fois si la fonction a été correctement importée
 if initialize_buttons:
     initialize_buttons()
-
 
 
 def main():
@@ -122,11 +126,10 @@ def main():
     st.sidebar.title("Question")
     col1, col2 = st.columns(2)
     if st.sidebar.button(buttons["button_1_text"]):
-        imported_message_protocol.open_link_in_new_tab(buttons['button_1_link'])
+        imported_message_protocol.open_link_in_new_tab(buttons["button_1_link"])
 
     if st.sidebar.button(buttons["button_2_text"]):
-        imported_message_protocol.open_link_in_new_tab(buttons['button_2_link'])
-
+        imported_message_protocol.open_link_in_new_tab(buttons["button_2_link"])
 
     st.sidebar.text(" ")
     st.sidebar.text(" ")
@@ -152,6 +155,7 @@ def main():
         st.session_state.messages.append({"role": "assistant", "content": response})
 
     st.markdown("</div>", unsafe_allow_html=True)
+
 
 def page_selector():
     if "page" not in st.session_state:

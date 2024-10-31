@@ -34,7 +34,7 @@ if imported_api:
 imported_message = __import__(module_sen_message)
 
 st.set_page_config(page_title="Start", page_icon="🤖")
-st.header("Start with LLamaIndex")
+st.header("GAgent with LLamaIndex")
 
 # Ajoutez la racine du projet à sys.path
 PERSIST_DIR = base_dir / "storage"
