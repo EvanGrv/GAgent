@@ -16,7 +16,7 @@ if module_dir not in sys.path:
 imported_config = __import__(module_config)
 
 current_dir = Path(__file__).resolve().parent
-bash_script_path = current_dir / 'bash' / 'start_streamlit.sh'
+bash_script_path = current_dir / "bash" / "start_streamlit.sh"
 
 
 def initialize_buttons():
@@ -28,6 +28,7 @@ def initialize_buttons():
         st.session_state.button_2_link = ""
         st.session_state.initialized = True
 
+
 def get_button_state():
     """Retourne l'état actuel des boutons"""
     return {
@@ -36,6 +37,7 @@ def get_button_state():
         "button_2_text": st.session_state.button_2_text,
         "button_2_link": st.session_state.button_2_link,
     }
+
 
 def update_buttons(button_1_text, button_1_link, button_2_text, button_2_link):
     """Mise à jour des boutons dans session_state"""
@@ -100,7 +102,9 @@ def admin():
     if st.button("Mettre à jour les configurations"):
         update_config(new_assistant_id, new_thread_id)
         try:
-            result = subprocess.run(['bash', bash_script_path], check=True, capture_output=True, text=True)
+            result = subprocess.run(
+                ["bash", bash_script_path], check=True, capture_output=True, text=True
+            )
             print("Script exécuté avec succès")
             print("Sortie du script :")
             print(result.stdout)  # Affiche la sortie du script Bash
@@ -122,10 +126,5 @@ def admin():
         update_buttons(button_1_text, button_1_link, button_2_text, button_2_link)
         st.success("Modifications enregistrées avec succès !")
 
-
-
-
-
     if st.sidebar.button("Retourner au menu principal"):
         st.session_state["page"] = "main"
-

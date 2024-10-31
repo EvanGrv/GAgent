@@ -36,10 +36,10 @@ def upload_file_to_openai(file, save_directory):
         print(file_batch.file_counts)
 
         # Update the assistant to use the new Vector Store
-        #assistant = client.beta.assistants.update(
+        # assistant = client.beta.assistants.update(
         #    assistant_id=assistant_id,
         #    tool_resources={"file_search": {"vector_store_ids": [vector_store.id]}},
-        #)
+        # )
 
         return "File uploaded successfully and assistant updated."
 

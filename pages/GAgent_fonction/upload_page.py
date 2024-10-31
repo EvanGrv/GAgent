@@ -47,6 +47,7 @@ def save_files(file_list):
 def add_file(uploaded_file, file_list, username, expiration_days):
     save_directory = get_save_directory()
     file_path = os.path.join(save_directory, uploaded_file.name)
+    imported_upload.upload_file_to_openai(file_path, save_directory)
     with open(file_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
 
@@ -67,6 +68,9 @@ def add_file(uploaded_file, file_list, username, expiration_days):
 
 # Fonction pour supprimer un fichier
 def delete_file(index, file_list, username):
+    save_directory = get_save_directory()
+    file_path = os.path.join(save_directory, file_list.name)
+    imported_upload.delete_file(save_directory, file_path)
     file_list[index]["Action"] = "Deleted"
     file_list[index]["Deleted By"] = username
     file_list[index]["Date Deleted"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")

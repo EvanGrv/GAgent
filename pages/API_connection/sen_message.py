@@ -90,8 +90,10 @@ class EventHandler(AssistantEventHandler):
         if len(words) > 1 and words[0] == words[1]:
             # Si les deux premiers mots sont identiques, les supprimer une fois
             return text[
-                   len(words[0]):].lstrip()  # Enlever seulement la première occurrence du mot en gardant les espaces
+                len(words[0]) :
+            ].lstrip()  # Enlever seulement la première occurrence du mot en gardant les espaces
         return text
+
     def on_tool_call_created(self, tool_call):
         if (
             tool_call.type != "file_search"
@@ -137,5 +139,3 @@ def send_message_stream(message, callback):
             stream.until_done()
     except Exception as e:
         logging.error(f"Une erreur s'est produite lors du flux de messages : {e}")
-
-

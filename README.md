@@ -87,5 +87,8 @@ Les clés d'API se trouvent, comme énoncé précédemment, dans les fichiers `c
 
 ## Étapes restantes à faire 
 
+- Assistant vocal en JS 
+- Interface React
+
 
 
